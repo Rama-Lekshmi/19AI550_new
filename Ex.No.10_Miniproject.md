@@ -1,35 +1,71 @@
-# Ex.No: 1  Installation of Unity for Game Development
+# Ex.No: 10  Implementation of 2D/3D game - Escape from the Falling Object Game
 ### DATE:                                                                            
-### REGISTER NUMBER : 212222240082
+### REGISTER NUMBER :212222240082
 ### AIM: 
-To install Unity2022.3.57f1 or higher version for Game Development.
-### Procedure:
-1. Goto website https://unity.com/releases/editor/archive or https://unity.com/download  and choose the corresponding Unity Hub and download it.
-2. Create a personal login and choose the plan
-   
-   ![image](https://github.com/user-attachments/assets/f6a2db46-908f-4a91-b63d-794af5cb35d8)
-   
-4. Open the unity Hub and choose install button.
-   
-   ![image](https://github.com/user-attachments/assets/ecbd5e46-cd02-4966-a470-4833e05c2574)
-   
-6. Choose Unity install editor and specify the location
-   
- ![image](https://github.com/user-attachments/assets/d9e882d1-a73e-4704-a554-2ea4eb1964c7)
+To develop a Escape from the Falling Object Game in Unity 
+### Algorithm:
+```
+1. Create a new Unity project.
+2. Add a Player GameObject to the scene.
+3. Add a FallingObject GameObject to the scene.
+4. Attach the PlayerController script to the Player GameObject.
+5. Attach the FallingObject script to the FallingObject GameObject.
+6. Set the Player GameObject's tag and add a Collider2D (if needed).
+7. Set the Ground GameObject with tag "Ground" and add a Collider2D with IsTrigger enabled.
+8. In the PlayerController script, read horizontal input and move the player each frame (in Update).
+9. In the FallingObject script, move the object downwards each frame and check for collision with the ground using OnTriggerEnter2D.
+10. If the falling object collides with the ground, destroy the player object.
+```
+### Program:
+#### FallingObject.cs
+```
+using UnityEngine;
 
-8.  Add modules Microsoft Visual studio community 2022 ,documentation and continue
-9.  After unity hub editor and  Visual studio community 2022 installation proceeds
-   
-   ![image](https://github.com/user-attachments/assets/4425bc37-99c3-4fc6-b887-da5366ae9860)
-   
-9.Now install shows like 
+public class FallingObject : MonoBehaviour
+{
+    public float fallSpeed = 1f;
 
-![image](https://github.com/user-attachments/assets/7e1dd5c5-4398-4c10-89cd-5f0442f49c59)
+    void Update()
+    {
+        transform.position += new Vector3(0, -fallSpeed * Time.deltaTime, 0);
+    }
 
-10.Select projects and create new 2D or 3D project and verify all are working
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Ground"))
+        {
+            Destroy(gameObject); // Destroy the object when it hits the ground
+        }
+    }
+}
 
-![image](https://github.com/user-attachments/assets/c902763e-4ba5-42b7-8251-a74db9ba5a42)
+```
+#### PlayerController.cs
+```
+
+using UnityEngine;
+
+public class PlayerController : MonoBehaviour
+{
+    public float speed = 5f;
+
+    void Update()
+    {
+        float move = Input.GetAxis("Horizontal"); // Get left/right key input
+        transform.position += new Vector3(move * speed * Time.deltaTime, 0, 0);
+    }
+}
+
+```
+
+### Output:
+![WhatsApp Image 2025-05-20 at 21 15 36_54544c74](https://github.com/user-attachments/assets/f0ae77b1-f643-41ef-a604-3b00b31f9b10)
+
+![WhatsApp Image 2025-05-20 at 21 16 29_6ff37835](https://github.com/user-attachments/assets/6213cc1e-28f4-49bf-a996-a848118888ce)
+
+![WhatsApp Image 2025-05-20 at 21 17 22_b6834eb3](https://github.com/user-attachments/assets/1495f1f2-34bd-4138-9d7a-fbe287956aea)
+
 
 
 ### Result:
-Thus the unity installation was completed sucessfully.
+Thus the game Escape from the Falling Object Game was developed using Unity.
